@@ -1,7 +1,7 @@
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
   mapOption = {
     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-    level: 1, // 지도의 확대 레벨
+    level: 2, // 지도의 확대 레벨
   };
 
 // 지도 생성
@@ -42,6 +42,8 @@ kakao.maps.event.addListener(map, "click", function (mouseEvent) {
 
       var resultDiv = document.getElementById("clickLatlng");
       resultDiv.innerHTML = message;
+
+      map.relayout();
     }
   });
 });
@@ -59,4 +61,18 @@ function searchAddrFromCoords(coords, callback) {
 function searchDetailAddrFromCoords(coords, callback) {
   // 좌표로 법정동 상세 주소 정보를 요청합니다
   geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+function displayCenterInfo(result, status) {
+  if (status === kakao.maps.services.Status.OK) {
+    var infoDiv = document.getElementById("centerAddr");
+
+    // for (var i = 0; i < result.length; i++) {
+    //   // 행정동의 region_type 값은 'H' 이므로
+    //   if (result[i].region_type === "H") {
+    //     infoDiv.innerHTML = result[i].address_name;
+    //     break;
+    //   }
+    // }
+  }
 }
